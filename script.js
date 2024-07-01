@@ -1,6 +1,4 @@
 function showHearts(event) {
-    console.log('Clicked at:', event.pageX, event.pageY);
-
     var heartsContainer = document.getElementById("hearts");
     if (!heartsContainer) {
         console.error('Hearts container not found');
@@ -10,14 +8,15 @@ function showHearts(event) {
     var heartImage = document.createElement('img');
     heartImage.src = 'https://media.tenor.com/ugUmlN1TcbgAAAAi/amor-heart.gif';
     heartImage.alt = 'Heart';
-    heartImage.style.position = 'absolute';
-    heartImage.style.left = event.pageX + 'px';
-    heartImage.style.top = event.pageY + 'px';
-    
-    console.log('Heart position:', heartImage.style.left, heartImage.style.top);
+    heartImage.classList.add('heart'); // Add a class for additional styling if needed
+
+    // Set heart position based on click event coordinates
+    heartImage.style.left = event.clientX + 'px';
+    heartImage.style.top = event.clientY + 'px';
 
     heartsContainer.appendChild(heartImage);
 
+    // Remove heart after 3 seconds (adjust as needed)
     setTimeout(function() {
         heartImage.remove();
     }, 3000);
