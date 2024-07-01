@@ -4,10 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Floating Hearts</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            position: relative;
+            background-image: url('https://media1.tenor.com/m/Gp2MsdoLIv4AAAAC/waving-gif.gif');
+            background-repeat: repeat;
+            background-size: cover;
+        }
+
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Prevents hearts from capturing click events */
+        }
+
+        .hearts img {
+            position: absolute;
+            opacity: 0;
+            animation: floatHeart 5s ease-in-out infinite;
+            width: 150px; /* Adjust image size for better resolution */
+        }
+
+        @keyframes floatHeart {
+            0%, 100% {
+                transform: translateY(0) translateX(0) rotate(0deg) scale(1);
+                opacity: 0;
+            }
+            25% {
+                transform: translateY(-50vh) translateX(-50vw) rotate(180deg) scale(1.2);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(50vh) translateX(50vw) rotate(90deg) scale(1.1);
+                opacity: 1;
+            }
+            75% {
+                transform: translateY(-30vh) translateX(-30vw) rotate(270deg) scale(1.3);
+                opacity: 1;
+            }
+        }
+    </style>
+    <script>
+        // Function to create hearts continuously
+        function createHearts() {
+            var heartsContainer = document.getElementById("hearts");
+            if (!heartsContainer) {
+                console.error('Hearts container not found');
+                return;
+            }
+
+            // Create a new heart image
+            var heartImage = document.createElement('img');
+            heartImage.src = 'https://media.tenor.com/ugUmlN1TcbgAAAAi/amor-heart.gif';
+            heartImage.alt = 'Heart';
+            heartImage.classList.add('heart'); // Optional: Add a class for additional styling if needed
+
+            // Set random position for the heart
+            var randomX = Math.random() * window.innerWidth;
+            var randomY = Math.random() * window.innerHeight;
+            heartImage.style.left = randomX + 'px';
+            heartImage.style.top = randomY + 'px';
+
+            heartsContainer.appendChild(heartImage);
+
+            // Remove heart after 5 seconds (adjust as needed)
+            setTimeout(function() {
+                heartImage.remove();
+            }, 5000);
+
+            // Create another heart after a random interval (adjust as needed)
+            var nextHeartTime = Math.random() * 300; // Random interval up to 300ms
+            setTimeout(createHearts, nextHeartTime);
+        }
+
+        // Start creating hearts when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createHearts();
+        });
+    </script>
 </head>
 <body>
     <div class="hearts" id="hearts"></div>
-    <script src="script.js"></script>
 </body>
 </html>
