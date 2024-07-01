@@ -6,7 +6,7 @@ body {
     height: 100vh;
     margin: 0;
     background-color: #f0f0f0;
-    overflow: hidden; /* Prevents scrolling beyond viewport */
+    overflow: hidden;
     position: relative;
     background-image: url('https://media1.tenor.com/m/Gp2MsdoLIv4AAAAC/waving-gif.gif');
     background-repeat: repeat;
@@ -14,7 +14,7 @@ body {
 }
 
 .message {
-    font-size: 3em; /* Adjust font size for better readability */
+    font-size: 3em;
     color: #333;
     text-align: center;
     cursor: pointer;
@@ -30,19 +30,18 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    pointer-events: none; /* Prevents hearts from capturing click events */
-    animation: floatHearts 20s linear infinite;
+    pointer-events: none;
 }
 
 .hearts img {
     position: absolute;
-    opacity: 0; /* Initially hidden */
+    opacity: 0;
     animation: floatHeart 5s ease-in-out infinite;
-    width: 150px; /* Adjust image size for better resolution */
+    width: 150px;
 }
 
 .hearts.visible img {
-    opacity: 1; /* Make hearts visible when .visible is applied */
+    opacity: 1;
 }
 
 @keyframes floatHeart {
@@ -52,16 +51,11 @@ body {
     75% { transform: translateY(-30vh) rotate(270deg) scale(1.3); }
 }
 
-@keyframes floatHearts {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-200vh); }
-}
-
 @media only screen and (max-width: 600px) {
     .message {
-        font-size: 2em; /* Adjust font size for smaller screens */
+        font-size: 2em;
     }
     .hearts img {
-        width: 100px; /* Adjust image size for smaller screens */
+        width: 100px;
     }
 }
