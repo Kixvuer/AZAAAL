@@ -20,6 +20,15 @@
             background-size: cover;
         }
 
+        .container {
+            position: relative;
+            width: 80%; /* Adjust width as needed */
+            height: 80%; /* Adjust height as needed */
+            border: 2px dashed #ccc; /* Just for visualization */
+            overflow: hidden;
+            margin-top: 20px; /* Just for positioning */
+        }
+
         .hearts {
             position: absolute;
             top: 0;
@@ -56,25 +65,19 @@
         }
     </style>
     <script>
-        // Function to create hearts at a specific position
-        function createHeartAtPosition(x, y) {
-            var heartsContainer = document.getElementById("hearts");
-            if (!heartsContainer) {
-                console.error('Hearts container not found');
-                return;
-            }
-
+        // Function to create hearts at a specific position within a container
+        function createHeartInContainer(container, x, y) {
             // Create a new heart image
             var heartImage = document.createElement('img');
             heartImage.src = 'https://media1.tenor.com/m/3HBTd5ylXPcAAAAC/peach-goma.gif';
             heartImage.alt = 'Heart';
             heartImage.classList.add('heart'); // Optional: Add a class for additional styling if needed
 
-            // Set position for the heart
+            // Set position for the heart relative to the container
             heartImage.style.left = x + 'px';
             heartImage.style.top = y + 'px';
 
-            heartsContainer.appendChild(heartImage);
+            container.appendChild(heartImage);
 
             // Remove heart after 5 seconds (adjust as needed)
             setTimeout(function() {
@@ -82,15 +85,22 @@
             }, 5000);
         }
 
-        // Event listener to create heart on click
-        document.addEventListener('click', function(event) {
-            var clickX = event.clientX;
-            var clickY = event.clientY;
-            createHeartAtPosition(clickX, clickY);
+        // Event listener to create heart on click within the container
+        document.addEventListener('DOMContentLoaded', function() {
+            var container = document.querySelector('.container');
+
+            container.addEventListener('click', function(event) {
+                var containerRect = container.getBoundingClientRect();
+                var clickX = event.clientX - containerRect.left;
+                var clickY = event.clientY - containerRect.top;
+                createHeartInContainer(container, clickX, clickY);
+            });
         });
     </script>
 </head>
 <body>
-    <div class="hearts" id="hearts"></div>
+    <div class="container">
+        <div class="hearts"></div>
+    </div>
 </body>
 </html>
