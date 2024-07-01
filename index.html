@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Floating Hearts</title>
+    <title>Interactive Hearts</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,8 +56,8 @@
         }
     </style>
     <script>
-        // Function to create hearts continuously
-        function createHearts() {
+        // Function to create hearts at a specific position
+        function createHeartAtPosition(x, y) {
             var heartsContainer = document.getElementById("hearts");
             if (!heartsContainer) {
                 console.error('Hearts container not found');
@@ -70,11 +70,9 @@
             heartImage.alt = 'Heart';
             heartImage.classList.add('heart'); // Optional: Add a class for additional styling if needed
 
-            // Set random position for the heart
-            var randomX = Math.random() * window.innerWidth;
-            var randomY = Math.random() * window.innerHeight;
-            heartImage.style.left = randomX + 'px';
-            heartImage.style.top = randomY + 'px';
+            // Set position for the heart
+            heartImage.style.left = x + 'px';
+            heartImage.style.top = y + 'px';
 
             heartsContainer.appendChild(heartImage);
 
@@ -82,15 +80,13 @@
             setTimeout(function() {
                 heartImage.remove();
             }, 5000);
-
-            // Create another heart after a random interval (adjust as needed)
-            var nextHeartTime = Math.random() * 300; // Random interval up to 300ms
-            setTimeout(createHearts, nextHeartTime);
         }
 
-        // Start creating hearts when the page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            createHearts();
+        // Event listener to create heart on click
+        document.addEventListener('click', function(event) {
+            var clickX = event.clientX;
+            var clickY = event.clientY;
+            createHeartAtPosition(clickX, clickY);
         });
     </script>
 </head>
